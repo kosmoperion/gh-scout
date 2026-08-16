@@ -1,18 +1,36 @@
 # gh-scout
 
+<img src="assets/demo.gif" alt="gh-scout scouting GitHub, npm, and Hacker News for maritime shipping software, then delivering an adopt-vs-build digest" width="820" />
+
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-8A2BE2)
 ![shellcheck clean](https://img.shields.io/badge/shellcheck-clean-brightgreen)
 
-**Deep GitHub reconnaissance for Claude Code — run it right before you plan or build anything, and it tells you whether someone already built it.**
+**Stop rebuilding things that already exist.** Point gh-scout at your idea before Claude Code writes a line of it, and it tells you: adopt this, depend on that, or here's why nothing exists and you should build it.
 
-GitHub's own search is a shallow keyword match. gh-scout wraps it in an LLM layer on both ends: it expands your idea into many search angles, pulls from multiple sources (repo search, code search, npm/crates registries, awesome-lists, Hacker News), merges and scores everything by real signals — cross-source corroboration, download counts, maintenance health — then reads the top candidates' READMEs and tells you straight: **adopt this, depend on that, or here's why nothing exists and you should build it.**
+You know that sinking feeling three hours into a build, when you discover a maintained library already does this? gh-scout gives you that feeling *before* you start, not after — by expanding your idea into a dozen search angles across GitHub, npm/crates, awesome-lists, and Hacker News, scoring every result by real signals (cross-source corroboration, download counts, maintenance health), and reading the top candidates' READMEs itself.
 
-A run costs about a minute and can save days of rebuilding something that already exists as a maintained library.
+## Install
+
+```bash
+git clone https://github.com/kosmoperion/gh-scout.git ~/.claude/skills/gh-scout
+```
+
+Claude Code picks up any skill under `~/.claude/skills/` automatically — no build step, nothing to compile. Requires [`gh`](https://cli.github.com/), authenticated (`gh auth login` — code search specifically requires it), and `jq`. Every other source (npm, crates.io, deps.dev, Hacker News) is a plain, auth-free HTTPS call.
+
+## Usage
+
+Inside Claude Code:
+
+```
+/gh-scout help me find repos that do X
+```
+
+or just describe what you're about to build in conversation — the skill is written to trigger proactively before implementation plans for new features, libraries, or services. See [`SKILL.md`](SKILL.md) for the exact trigger conditions.
 
 ## Example output
 
-A real run against *"software for the maritime shipping/logistics industry"*:
+A real run against *"software for the maritime shipping/logistics industry"* — the same one shown in the GIF above:
 
 ```markdown
 ## gh-scout: maritime shipping & logistics software — thin ecosystem (primitives exist)
@@ -42,33 +60,6 @@ is proprietary. If you're building on the vessel-tracking/AIS side, go-ais
 ```
 
 Notice what happened there: it didn't just list repos, it caught that the *specific* thing doesn't exist as OSS, pivoted to the *underlying protocol*, and flagged real license constraints (AGPL vs MIT vs unlicensed) that raw star counts would never surface.
-
-## Install
-
-Copy the skill into your Claude Code skills directory:
-
-```bash
-git clone https://github.com/kosmoperion/gh-scout.git ~/.claude/skills/gh-scout
-```
-
-(Or clone anywhere and symlink it into `~/.claude/skills/gh-scout`.) Claude Code picks up any skill under `~/.claude/skills/` automatically — no build step, nothing to compile.
-
-### Requirements
-
-- [`gh`](https://cli.github.com/) CLI, authenticated (`gh auth login`) — code search specifically requires auth.
-- `jq` — the scoring/merge/enrich pipeline is jq-driven throughout.
-
-That's it. Every other source (npm, crates.io, deps.dev, Hacker News) is a plain authenticated-free HTTPS call.
-
-## Usage
-
-Inside Claude Code:
-
-```
-/gh-scout help me find repos that do X
-```
-
-or just describe what you're about to build in conversation — the skill is written to trigger proactively before implementation plans for new features, libraries, or services. See [`SKILL.md`](SKILL.md) for the exact trigger conditions and the full pipeline it runs (distill intent → expand queries → widen sources → enrich → read READMEs → categorize → deliver a digest).
 
 ## How it works
 
