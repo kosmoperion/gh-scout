@@ -1,0 +1,6 @@
+# Runtime cache written by lib/common.sh's gs_get (per-user, per-machine — never commit)
+.cache/
+
+# Common OS/editor noise
+.DS_Store
+*.swp
