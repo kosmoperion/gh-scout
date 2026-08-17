@@ -1,9 +1,9 @@
 Output assets/demo.gif
 
 Set Shell "bash"
-Set FontSize 20
-Set Width 1200
-Set Height 640
+Set FontSize 17
+Set Width 1300
+Set Height 830
 Set Theme "Dracula"
 Set Padding 24
 Set TypingSpeed 45ms
@@ -14,7 +14,7 @@ Enter
 Sleep 300ms
 Show
 
-Type `# /gh-scout software for the maritime shipping and logistics industry`
+Type `# /gh-scout vector database for RAG and embeddings storage`
 Enter
 Sleep 1200ms
 
@@ -23,8 +23,14 @@ Enter
 Sleep 1800ms
 
 Hide
-Type "glow -s pink -w 96 assets/demo-digest.md"
+Type "glow -s pink -w 96 assets/demo-digest.md > /tmp/gh-scout-output.ans"
+Enter
+Sleep 300ms
+Type "clear"
+Enter
 Show
+
+Type "cat /tmp/gh-scout-output.ans"
 Enter
 
 Sleep 6s

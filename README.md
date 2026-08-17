@@ -1,6 +1,6 @@
 # gh-scout
 
-<img src="assets/demo.gif" alt="gh-scout scouting GitHub, npm, and Hacker News for maritime shipping software, then delivering an adopt-vs-build digest" width="820" />
+<img src="assets/demo.gif" alt="gh-scout scouting vector databases: ranking milvus, qdrant, and weaviate as real adopt candidates while flagging a star-inflated repo and excluding it from the recommendation" width="820" />
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-8A2BE2)
@@ -30,7 +30,7 @@ or just describe what you're about to build in conversation — the skill is wri
 
 ## Example output
 
-A real run against *"software for the maritime shipping/logistics industry"* — the same one shown in the GIF above:
+The GIF above shows gh-scout finding real adopt candidates *and* catching a star-inflated repo. It also handles the opposite outcome well — telling you nothing adoptable exists, and why. A real run against *"software for the maritime shipping/logistics industry"*:
 
 ```markdown
 ## gh-scout: maritime shipping & logistics software — thin ecosystem (primitives exist)
